@@ -1,19 +1,15 @@
 require "product"
 
-describe "Product" do
-  before :each do
-    @turnips = Product.new("Turnips", 2)
-  end
+describe Product do
+  let(:product) { Product.new("Turnip", 5) }
 
-  it "successfully instantiates the product class" do
-    expect(@turnips).to be_kind_of(Product)
-  end
+  context "#defaults" do
+    it "should have a name" do
+      expect(product.name).to eq("Turnip")
+    end
 
-  it "should return the name of the product" do
-    expect(@turnips.name).to eq "Turnips"
-  end
-
-  it "should return the cost of the product" do
-    expect(@turnips.cost).to eq 2
+    it "should have a price" do
+      expect(product.cost).to eq 5
+    end
   end
 end

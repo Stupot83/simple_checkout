@@ -1,21 +1,22 @@
 require "checkout"
 
-describe "Checkout" do
-  before :each do
-    @checkout = Checkout.new
-    @beans = Product.new("Beans", 2)
-    @bread = Product.new("Bread", 3)
-    @butter = Product.new("Butter", 3)
+describe Checkout do
+  let(:checkout) { Checkout.new }
+  let(:product_1) { double(:product, name: "Turnip", cost: 5) }
+  let(:product_2) { double(:product, name: "Beans", cost: 3) }
+
+  describe "#ring_up" do
+    it { is_expected.to respond_to(:ring_up) }
+
+    it { is_expected.to respond_to(:ring_up).with(1).argument }
   end
 
-  it "successfully instantiates the checkout class" do
-    expect(@checkout).to be_kind_of(Checkout)
-  end
-
-  it "can ring_up products at the checkout and return the total" do
-    @checkout.ring_up(@beans)
-    @checkout.ring_up(@bread)
-    @checkout.ring_up(@butter)
-    expect(@checkout.shop_cost).to eq 8
+  describe "#shop_cost" do
+    it { is_expected.to respond_to :shop_cost }
+    it "should return the total shop_cost" do
+      checkout.ring_up(product_1)
+      checkout.ring_up(product_2)
+      expect(checkout.shop_cost).to eq 8
+    end
   end
 end
